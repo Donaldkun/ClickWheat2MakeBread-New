@@ -22,6 +22,7 @@ public class ClickWheat2MakeBread extends JavaPlugin {
   @Override
   public void onEnable() {
     if (this.getConfig().get("players") == null) {
+      this.saveDefaultConfig();
       this.getConfig().set("players", new HashMap<String, Boolean>());
       this.saveConfig();
     }
