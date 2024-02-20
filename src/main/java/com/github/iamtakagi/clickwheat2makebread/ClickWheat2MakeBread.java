@@ -16,7 +16,7 @@ public class ClickWheat2MakeBread extends JavaPlugin {
     this.getServer().getPluginManager().registerEvents(new Listener() {
       @EventHandler
       public void onClick(PlayerInteractEvent event) {
-        if (event.getAction() == Action.LEFT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.PHYSICAL) {
+        if (event.getAction() == Action.LEFT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_AIR) {
           ItemStack item = event.getPlayer().getItemInHand();
           if (item == null) {
             return;
