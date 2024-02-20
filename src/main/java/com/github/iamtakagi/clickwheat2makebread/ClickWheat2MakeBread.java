@@ -15,7 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class ClickWheat2MakeBread extends JavaPlugin {
 
-  private static Map<UUID, Boolean> players = new HashMap<>();
+  private static Map<String, Boolean> players = new HashMap<>();
 
   @Override
   public void onEnable() {
@@ -24,7 +24,7 @@ public class ClickWheat2MakeBread extends JavaPlugin {
       this.getConfig().set("players", new HashMap<UUID, Boolean>());
       this.saveConfig();
     }
-    players = (Map<UUID, Boolean>) this.getConfig().get("players");
+    players = (Map<String, Boolean>) this.getConfig().get("players");
     this.getServer().getPluginManager().registerEvents(new Listener() {
       @EventHandler
       public void onClick(PlayerInteractEvent event) {
@@ -50,7 +50,7 @@ public class ClickWheat2MakeBread extends JavaPlugin {
     this.getCommand("bt").setExecutor((sender, command, label, args) -> {
       if (sender instanceof Player) {
         Player player = (Player) sender;
-        UUID uuid = player.getUniqueId();
+        String uuid = player.getUniqueId().toString();
         if (players.containsKey(uuid)) {
           players.put(uuid, !players.get(uuid));
         } else {
