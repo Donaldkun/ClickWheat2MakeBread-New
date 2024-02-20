@@ -13,6 +13,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import net.md_5.bungee.api.ChatColor;
+
 public class ClickWheat2MakeBread extends JavaPlugin {
 
   private static Map<String, Boolean> players = new HashMap<>();
@@ -56,7 +58,7 @@ public class ClickWheat2MakeBread extends JavaPlugin {
         } else {
           players.put(uuid, true);
         }
-        player.sendMessage("ClickWheat2MakeBread: " + (players.get(uuid) ? "ON" : "OFF"));
+        player.sendMessage("ClickWheat2MakeBread: " + (players.get(uuid) ? ChatColor.GREEN + "ON" : ChatColor.RED + "OFF"));
         this.getConfig().set("players", players);
         this.saveConfig();
       }
