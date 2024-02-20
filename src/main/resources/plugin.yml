@@ -1,0 +1,5 @@
+name: ClickWheat2MakeBread
+version: 1.0.0
+main: com.github.iamtakagi.clickwheat2makebread.ClickWheat2MakeBread
+author: iamtakagi
+api-version: 1.20
