@@ -1,6 +1,8 @@
 package com.github.iamtakagi.clickwheat2makebread;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -17,20 +19,16 @@ import net.md_5.bungee.api.ChatColor;
 
 public class ClickWheat2MakeBread extends JavaPlugin {
 
-  private static Map<String, Boolean> players = new HashMap<>();
+  private static List<String> enabledPlayers = new ArrayList<String>();
 
   @Override
   public void onEnable() {
-    if (this.getConfig().get("players") == null) {
-      this.saveDefaultConfig();
-      this.getConfig().set("players", new HashMap<String, Boolean>());
-      this.saveConfig();
-    }
-    players = (Map<String, Boolean>) this.getConfig().get("players");
+    this.saveDefaultConfig();
+    enabledPlayers = this.getConfig().getStringList("enabled_players");
     this.getServer().getPluginManager().registerEvents(new Listener() {
       @EventHandler
       public void onClick(PlayerInteractEvent event) {
-        if (!players.getOrDefault(event.getPlayer().getUniqueId(), false)) {
+        if (!enabledPlayers.contains(event.getPlayer().getUniqueId().toString())) {
           return;
         }
         if (event.getAction() == Action.LEFT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.PHYSICAL) {
@@ -53,13 +51,13 @@ public class ClickWheat2MakeBread extends JavaPlugin {
       if (sender instanceof Player) {
         Player player = (Player) sender;
         String uuid = player.getUniqueId().toString();
-        if (players.containsKey(uuid)) {
-          players.put(uuid, !players.get(uuid));
+        if (enabledPlayers.contains(uuid)) {
+          enabledPlayers.remove(uuid);
         } else {
-          players.put(uuid, true);
+          enabledPlayers.add(uuid);
         }
-        player.sendMessage("ClickWheat2MakeBread: " + (players.get(uuid) ? ChatColor.GREEN + "ON" : ChatColor.RED + "OFF"));
-        this.getConfig().set("players", players);
+        player.sendMessage("ClickWheat2MakeBread: " + (enabledPlayers.contains(uuid) ? ChatColor.GREEN + "ON" : ChatColor.RED + "OFF"));
+        this.getConfig().set("enabled_players", enabledPlayers);
         this.saveConfig();
       }
       return true;
@@ -68,7 +66,7 @@ public class ClickWheat2MakeBread extends JavaPlugin {
 
   @Override
   public void onDisable() {
-    this.getConfig().set("players", players);
+    this.getConfig().set("enabled_players", enabledPlayers);
     this.saveConfig();
   }
 }
