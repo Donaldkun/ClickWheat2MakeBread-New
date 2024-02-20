@@ -1,10 +1,7 @@
 package com.github.iamtakagi.clickwheat2makebread;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
