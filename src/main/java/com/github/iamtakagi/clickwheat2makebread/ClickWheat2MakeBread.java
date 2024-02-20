@@ -21,9 +21,8 @@ public class ClickWheat2MakeBread extends JavaPlugin {
 
   @Override
   public void onEnable() {
-    this.saveDefaultConfig();
     if (this.getConfig().get("players") == null) {
-      this.getConfig().set("players", new HashMap<UUID, Boolean>());
+      this.getConfig().set("players", new HashMap<String, Boolean>());
       this.saveConfig();
     }
     players = (Map<String, Boolean>) this.getConfig().get("players");
@@ -33,7 +32,7 @@ public class ClickWheat2MakeBread extends JavaPlugin {
         if (!players.getOrDefault(event.getPlayer().getUniqueId(), false)) {
           return;
         }
-        if (event.getAction() == Action.LEFT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_AIR) {
+        if (event.getAction() == Action.LEFT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.PHYSICAL) {
           ItemStack item = event.getPlayer().getItemInHand();
           if (item == null) {
             return;
