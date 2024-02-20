@@ -21,7 +21,7 @@ public class ClickWheat2MakeBread extends JavaPlugin {
           if (item == null) {
             return;
           }
-          if (item.getType() == Material.WHEAT && item.getAmount() >= 3 && item.getAmount() % 3 == 0) {
+          if (item.getType() == Material.WHEAT && item.getAmount() >= 3) {
             item.setAmount(item.getAmount() - 3);
             Player player = event.getPlayer();
             if (player == null) {
